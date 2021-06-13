@@ -7,5 +7,5 @@ myenv
 /static
 run.py
 .scannerwork
-sonar-project
+sonar-project.properties
 
