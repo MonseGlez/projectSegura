@@ -48,11 +48,11 @@ class Credencial(models.Model):
             contraseña = self.cleaned_data.get('contraseña')
             if len(contraseña) > 100:
                 raise forms.ValidationError('La contraseña es muy largo. (max 50 caracteres')
-                exc_type, exc_value, exc_traceback = sys.exc_info()
-                lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
-                mensaje = (''.join('!! ' + line for line in lines))
-                enviarMensaje(mensaje)
+
             return contraseña
+
+
+
 
 
 

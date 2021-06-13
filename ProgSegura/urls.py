@@ -39,7 +39,7 @@ urlpatterns = [
    url(r'^agregar-credencial/$', csrf_protect(login_required(views.registrarCredencial)), name='registrarCredencial'),
    url(r'^(?P<id>\d+)/edit/$', csrf_protect(login_required(credencialUpdate)),name='editar-credencial'),
    url(r'^compartir_credencial/$', (login_required(views.compartirCredenciales)), name='credencial_compartir'),
-   path('delete/<id>/',login_required(credencialDelete),name='credencial_delete')
+   path('delete/<id>/',login_required(credencialDelete),name='credencial_delete'),
 
 ]
 handler404 = error_404

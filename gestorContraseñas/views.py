@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 
 # Create your views here.
@@ -22,8 +24,9 @@ from django.contrib.auth.hashers import check_password
 from os import remove
 import json
 from django.contrib.auth.models import User
-
-
+from django.utils.decorators import method_decorator
+from axes.decorators import axes_dispatch
+from django.views.decorators.csrf import csrf_exempt
 
 # Enable logging
 logging.basicConfig(level="ERROR")
@@ -182,25 +185,6 @@ def credencialUpdate(request, id):
         return render(request, 'gestorContraseñas/credencial_form.html', context)
 
 
-def llavesAsimetricas(usuario, password):
-
-    path_privada = 'llaves/' + usuario + 'privada.pem.cif'
-    path_publica = 'llaves/' + usuario + 'publica.pem'
-
-    iv = b"M\xb0%\xafd)\xe7\x11@7'\xb0\xcc\xc9\x81\xe2"
-    llave_aes = generar_llave_aes_from_password(password)
-    llave_privada = generar_llave_privada()
-    llave_publica = generar_llave_publica(llave_privada)
-    with open(path_privada, 'wb') as salida_privada:
-        contenido = cifrar(convertir_llave_privada_bytes(llave_privada), llave_aes, iv)
-        salida_privada.write(contenido)
-    salida_privada.close()
-    with open(path_publica, 'wb') as salida_publica:
-        contenido = convertir_llave_publica_bytes(llave_publica)
-        salida_publica.write(contenido)
-    salida_publica.close()
-
-
 def error_500(request):
     exc_type, exc_value, exc_traceback = sys.exc_info()
     lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
@@ -221,8 +205,11 @@ class BienvenidaView(TemplateView):
     template_name = 'gestorContraseñas/bienvenida.html'
 
 
+@method_decorator(axes_dispatch, name='dispatch')
+@method_decorator(csrf_exempt, name='dispatch')
 class SignInView(LoginView):
     template_name = 'gestorContraseñas/iniciar_sesion.html'
+
 
 
 class SignOutView(LogoutView):

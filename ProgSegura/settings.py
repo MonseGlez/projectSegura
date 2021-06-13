@@ -29,7 +29,6 @@ def get_env_variable(var_name):
             error_msg = "set the %s environment variable" % [var_name]
     raise ImproperlyConfigured(error_msg)
 LOG_TO_TELEGRAM_BOT_TOKEN =get_env_variable('LOG_TO_TELEGRAM_BOT_TOKEN')
-#LOG_TO_TELEGRAM_BOT_TOKEN = '1834739498:AAGRpE5-b3BZRTW39AscK_UAdPHNySAalsI'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,6 +85,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestorContraseñas.apps.GestorcontraseñasConfig',
     'django_log_to_telegram',
+    'axes',
+]
+AUTHENTICATION_BACKENDS = [
+    # AxesBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    'axes.backends.AxesBackend',
+    # Django ModelBackend is the default authentication backend.
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +102,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
+
+
 ]
 
 ROOT_URLCONF = 'ProgSegura.urls'
@@ -188,7 +197,7 @@ LOGOUT_REDIRECT_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 15 * 60
+SESSION_COOKIE_AGE = 5 * 60
 LOGIN_REDIRECT_URL ='/'
 
 
@@ -201,3 +210,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
+
