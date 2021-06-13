@@ -5,4 +5,7 @@ env/
 __pycache__
 myenv
 /static
+run.py
+.scannerwork
+sonar-project
 
