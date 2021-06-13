@@ -13,24 +13,23 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-#import environ
+import environ
 from pathlib import Path
-
 from django.core.exceptions import ImproperlyConfigured
 
-#env = environ.Env()
-#env.read_env(env.str('ENV_PATH', '.env'))
+env = environ.Env()
+env.read_env(env.str('ENV_PATH', '.env'))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 def get_env_variable(var_name):
     try:
-        if var_name == 'DB_NAME':
+        if var_name == 'DBNAME':
             return os.environ[var_name].encode('latin')
         return os.environ[var_name]
     except KeyError:\
             error_msg = "set the %s environment variable" % [var_name]
     raise ImproperlyConfigured(error_msg)
-
-LOG_TO_TELEGRAM_BOT_TOKEN = '1834739498:AAGRpE5-b3BZRTW39AscK_UAdPHNySAalsI'
+LOG_TO_TELEGRAM_BOT_TOKEN =get_env_variable('LOG_TO_TELEGRAM_BOT_TOKEN')
+#LOG_TO_TELEGRAM_BOT_TOKEN = '1834739498:AAGRpE5-b3BZRTW39AscK_UAdPHNySAalsI'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,12 +39,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mee1c5@ugk8d7$wi(4h1p#ubc^zcjsass8^=o*b5t@q@w!3oq2'
-
+#SECRET_KEY = 'django-insecure-mee1c5@ugk8d7$wi(4h1p#ubc^zcjsass8^=o*b5t@q@w!3oq2'
+SECRET_KEY = get_env_variable('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 #Django Logging
 LOGGING = {
     'version': 1,
@@ -131,9 +130,9 @@ WSGI_APPLICATION = 'ProgSegura.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'gestorcontraseñas',
-            'USER': 'admin',
-            'PASSWORD': 'r3d35y53rv1c105',
+            'NAME': get_env_variable('DBNAME'),
+            'USER': get_env_variable('DBUSER'),
+            'PASSWORD': get_env_variable('DBPASSWORD'),
             'HOST': '127.0.0.1',
             'PORT': '3306',
     }
@@ -199,7 +198,6 @@ ACCOUNT_UNIQUE_EMAIL=True
 #Email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'monserrat.gonzalez95@gmail.com'
-EMAIL_HOST_PASSWORD = 'SkywardSword1'
-#EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
