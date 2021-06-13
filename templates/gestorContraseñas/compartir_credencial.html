@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}Compartir Credencial{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="album py-5 bg-light">
+
+            <legend class="scheduler-border">Compartir credenciales</legend>
+            <form class="align-items-center" action="" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-row">
+                        <div class="md-form">
+                            {{ field.label_tag }} </div> </div>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                    </p>
+                {% endfor %}
+                <button class="btn btn-outline-primary" type="submit">Aceptar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

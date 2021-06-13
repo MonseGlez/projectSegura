@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Bievenido{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container">
+        <div class="album py-5 bg-light">
+        <h1>Bienvenido, {{ user.username }}</h1>
+        </div>
+        </div>
+    {% else %}
+        <div class="container">
+        <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <p> Gestor de contraseñas es una herramienta que te permitirá guardar tus credenciales de otros sitios de forma segura</p>
+            </div>
+        </div>
+        </div>
+        </div>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Agregar credencial{% endblock %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+<script type="text/javascript">
+$(document).on('click', '.toggle-password', function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $("#id_contraseña");
+    input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+});
+ function makePassword(maxLengthPass) {
+     var alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/*-.,()#$%&°¬|<>:";
+     var generatedPassword = "";
+     var tamaño = alfabeto.length;
+     for (var i = 0; i < maxLengthPass; ++i) {
+         generatedPassword = generatedPassword + alfabeto.charAt(Math.floor(Math.random() * tamaño));
+     }
+     document.getElementById("id_contraseña").value = generatedPassword;
+ }
+</script>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li style="color: forestgreen" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+    <div class="container">
+        <div class="album py-5 bg-light">
+            <form method="POST" class="align-items-center" action="">
+                <legend class="scheduler-border">Agregar Credencial</legend>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" type="submit">Aceptar</button>
+            </form>
+            <p> Si autogeneras la contraseña su longitud será de 16 caracteres, mayusculas, minusculas,caracteres especiales.
+            No te preocupes por recordarla, se guardará.</p>
+            <button class="btn btn-warning" onClick="makePassword(16);"> Autogenerar Contraseña?</button>
+            <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password"> </span>
+        </div>
+    </div>
+{% endblock content %}

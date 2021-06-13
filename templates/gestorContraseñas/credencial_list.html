@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Credenciales {% endblock %}
+{% block content %}
+{% csrf_token %}
+<div class="container">
+    <div class="album py-5 bg-light">
+        <legend class="scheduler-border">Credenciales Registradas</legend>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for post in posts %}
+                <div class="col">
+                    <div class="card shadow-sm" >
+                        <svg style="background-color:grey;" width="100%" height="225"></svg>
+                        <div class="card-body">
+                            <p class="card-text">URL: {{ post.url}} </p>
+                            <p class="card-text">Usuario Cuenta: {{ post.usuarioCuenta}} </p>
+                            <p class="card-text">Contraseña: {{ post.contraseña}} </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <a href="{% url 'credencial_detail' id=post.id %}">Detalles</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

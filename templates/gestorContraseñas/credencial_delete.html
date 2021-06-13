@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+         <div class="album py-5 bg-light">
+             <form method="POST">
+                 {% csrf_token %}
+                 <p>¿Estas seguro de eliminar este elemento? </p>
+                 <input type="submit" value="Si" />
+                 <a href="{% url 'credencial_list' %}">Cancelar </a>
+             </form>
+         </div>
+{% endblock %}

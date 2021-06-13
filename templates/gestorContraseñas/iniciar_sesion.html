@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+         {% block title %}Inicia Sesión{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="album py-5 bg-light">
+        <legend class="scheduler-border">Inicia sesión</legend>
+        <form method="POST" class="form-signin align-items-center">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <div class="d-grid gap-2">
+                                {{ form }}
+                                <button class="btn btn-primary" type="submit">Aceptar</button>
+                            </div>
+                            <a href="{% url 'password_reset' %}"> ¿Olvidaste la contraseña?</a>
+                        </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
