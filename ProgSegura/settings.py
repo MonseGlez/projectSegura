@@ -43,7 +43,7 @@ SECRET_KEY = get_env_variable('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','192.168.100.18','*']
 #Django Logging
 LOGGING = {
     'version': 1,
@@ -186,7 +186,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(BASE_DIR), 'static'))
-
+#STATIC_ROOT = '/var/www/static'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -199,7 +199,8 @@ MEDIA_URL = '/media/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 5 * 60
 LOGIN_REDIRECT_URL ='/'
-
+#SSL
+SECURE_SSL_REDIRECT = True
 
 #una cuenta por correo
 ACCOUNT_UNIQUE_EMAIL=True

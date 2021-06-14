@@ -8,4 +8,5 @@ myenv
 run.py
 .scannerwork
 sonar-project.properties
-
+DockerFile
+DokerFile.txt

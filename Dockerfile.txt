@@ -1,0 +1,18 @@
+FROM python:3.9
+RUN apt update -y && apt install nano-y && apt-get -y clean
+RUN mkdir /ProgSegura
+COPY ./ProgSegura /ProgSegura
+COPY ./requirements.txt /tmp
+RUN pip install -r /tmp/requirements.txt
+ENV LOG_TO_TELEGRAM_BOT_TOKEN=""
+ENV SECRET_KEY=""
+ENV DBNAME=""
+ENV DBUSER=""
+ENV DBPASSWORD=""
+
+RUN mkdir /start
+COPY ./run.sh /start
+WORKDIR /ProgSegura
+CMD /start/run.sh
+
+

@@ -61,7 +61,7 @@ def activar(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponse('Gracias por confirmar tu cuenta. Ahora puedes iniciar sesión. <a href="http://127.0.0.1:8000/inicia-sesion"> Aqui </a>')
+        return HttpResponse('Gracias por confirmar tu cuenta. Ahora puedes iniciar sesión.>')
     else:
         return HttpResponse('Enlace de activacion erroneo!')
 
@@ -198,7 +198,7 @@ def error_404(request, exception):
     lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
     mensaje = ('Error 404'.join('!! \n' + line for line in lines))
     enviarMensaje(mensaje)
-    return HttpResponseNotFound('Página no encontrada <a href=http://127.0.0.1:8000> regresar </a>')
+    return HttpResponseNotFound('Página no encontrada')
 
 
 class BienvenidaView(TemplateView):
