@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.forms import PasswordInput
 from django import forms
@@ -86,3 +86,11 @@ class compartirCredencial(forms.Form):
         fiels = ('usuarioExterno','contraseña')
 
 
+class EmailValidationOnForgotPassword(PasswordResetForm):
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not User.objects.filter(email__iexact=email, is_active=True).exists():
+            msg = ("Este correo no está registrado, por favor registrate.")
+            self.add_error('email', msg)
+        return email

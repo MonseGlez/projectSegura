@@ -30,11 +30,11 @@ def regresar_b_arch(path_archivo):
     return contenido
 
 def encrypt(key, source, encode=True):
-    key = SHA256.new(key).digest()  # use SHA-256 over our key to get a proper-sized AES key
-    IV = Random.new().read(AES.block_size)  # generate IV
+    key = SHA256.new(key).digest()  #  SHA-256
+    IV = Random.new().read(AES.block_size)  # IV
     encryptor = AES.new(key, AES.MODE_CBC, IV)
-    padding = AES.block_size - len(source) % AES.block_size  # calculate needed padding
-    source += bytes([padding]) * padding  # Python 2.x: source += chr(padding) * padding
+    padding = AES.block_size - len(source) % AES.block_size  #
+    source += bytes([padding]) * padding  # (padding) * padding
     data = IV + encryptor.encrypt(source)  # store the IV at the beginning and encrypt
     return base64.b64encode(data).decode("latin-1") if encode else data
 
