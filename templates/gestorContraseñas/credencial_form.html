@@ -1,24 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Agregar credencial{% endblock %}
-{% block content %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% load static %}
+ {% block scripts %}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-<script type="text/javascript">
-$(document).on('click', '.toggle-password', function() {
-    $(this).toggleClass("fa-eye fa-eye-slash");
-    var input = $("#id_contraseña");
-    input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
-});
- function makePassword(maxLengthPass) {
-     var alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/*-.,()#$%&°¬|<>:";
-     var generatedPassword = "";
-     var tamaño = alfabeto.length;
-     for (var i = 0; i < maxLengthPass; ++i) {
-         generatedPassword = generatedPassword + alfabeto.charAt(Math.floor(Math.random() * tamaño));
-     }
-     document.getElementById("id_contraseña").value = generatedPassword;
- }
-</script>
+
+{% endblock %}
+{% block content %}
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+ <script src="{% static 'js/funciones.js' %}" ></script>
+
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -28,16 +20,21 @@ $(document).on('click', '.toggle-password', function() {
 {% endif %}
     <div class="container">
         <div class="album py-5 bg-light">
-            <form method="POST" class="align-items-center" action="">
+            <form method="POST" class="align-items-center" action="" id="form">
                 <legend class="scheduler-border">Agregar Credencial</legend>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="btn btn-primary" type="submit">Aceptar</button>
+                <button class="btn btn-primary"  onclick="blankSpaces();">Aceptar</button>
             </form>
             <p> Si autogeneras la contraseña su longitud será de 16 caracteres, mayusculas, minusculas,caracteres especiales.
             No te preocupes por recordarla, se guardará.</p>
             <button class="btn btn-warning" onClick="makePassword(16);"> Autogenerar Contraseña?</button>
-            <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password"> </span>
+
+
+            <h1><span toggle="#password-field" class="bi bi-eye-slash toggle-password"> </span></h1>
         </div>
     </div>
+
+    </div>
+
 {% endblock content %}

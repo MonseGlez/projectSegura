@@ -72,14 +72,14 @@ def registrarCredencial(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.Usuario_id = request.user.id
-
             instance.contraseña = encrypt(request.user.password.encode('utf-8'), form.cleaned_data['contraseña'].encode('utf-8'))
-            if len(instance.contraseña) > 100:
-                raise forms.ValidationError('La contraseña es muy largo. (max 100 caracteres')
-            else:
-                instance.save()
-                messages.success(request, 'La cuenta fue agregada!')
-                return redirect('/agregar-credencial')
+            instance.nombreCuenta = form.cleaned_data.get('nombreCuenta')
+            instance.nombreCuenta.replace(" ", "")
+
+
+            instance.save()
+            messages.success(request, 'La cuenta fue agregada!')
+            return redirect('/agregar-credencial')
 
         else:
             context = {'form': form}

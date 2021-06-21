@@ -84,11 +84,8 @@ def generar_llave_privada():
     return private_key
 
 def generar_llave_publica(llave_privada):
+
     return llave_privada.public_key()
-
-
-
-
 
 def convertir_llave_privada_bytes(llave_privada):
     """

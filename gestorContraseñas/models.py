@@ -34,6 +34,8 @@ def guardar_usuario(sender, instance, **kwargs):
    instance.usuario.save()
 
 class Credencial(models.Model):
+
+
     nombreCuenta = models.CharField(max_length=15)
     Usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE , default=None)
 
@@ -41,15 +43,8 @@ class Credencial(models.Model):
     contraseña = models.CharField(max_length=100)
     url = models.CharField(max_length=25)
 
-   # def __str__(self):
-    #    return self.name
 
-    def clean_contraseña(self):
-            contraseña = self.cleaned_data.get('contraseña')
-            if len(contraseña) > 100:
-                raise forms.ValidationError('La contraseña es muy largo. (max 50 caracteres')
 
-            return contraseña
 
 
 
