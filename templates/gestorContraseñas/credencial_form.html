@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Agregar credencial{% endblock %}
-{% load static %}
- {% block scripts %}
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-
-{% endblock %}
 {% block content %}
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
- <script src="{% static 'js/funciones.js' %}" ></script>
 
 {% if messages %}
     <ul class="messages">
@@ -36,5 +27,31 @@
     </div>
 
     </div>
+    <script>
+    $(document).on('click', '.toggle-password', function() {
+    $(this).toggleClass("bi bi-eye bi-eye-slash");
+    var input = $("#id_contraseña");
+    input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+    });
+
+    function makePassword(maxLengthPass) {
+     var alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/*-.,()#$%&°¬|<>:";
+     var generatedPassword = "";
+     var tamaño = alfabeto.length;
+     for (var i = 0; i < maxLengthPass; ++i) {
+         generatedPassword = generatedPassword + alfabeto.charAt(Math.floor(Math.random() * tamaño));
+     }
+     document.getElementById("id_contraseña").value = generatedPassword;
+ }
+
+ function blankSpaces(){
+     var str = document.getElementById(id_nombreCuenta);
+     var tbLen = str.value.trim().length;
+
+     if (tbLen < 4){
+         alert("escribe un nombre válido");
+     }
+ }
+</script>
 
 {% endblock content %}

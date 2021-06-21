@@ -77,9 +77,6 @@ class SignUpForm(UserCreationForm):
 class compartirCredencial(forms.Form):
     usuarios = User.objects.values()
     usuarioExterno = forms.ChoiceField(choices = [], label="Elige un usuario")
-
-
-
     contraseña = forms.CharField(widget=forms.PasswordInput, label= "Por seguridad ingresa tu contraseña nuevamente")
 
     def __init__(self, *args, **kwargs):
